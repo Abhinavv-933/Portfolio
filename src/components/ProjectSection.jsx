@@ -12,9 +12,9 @@ const projects = [
   },
   {
     id: 2,
-    title: "Realtime Tracker(Backend Project)",
+    title: "Realtime Tracker",
     description:"A real-time location tracking system built with Node.js, Express, Socket.IO, and Leaflet.js, enabling live user position updates with role-based visibility.",
-    image: "/projects/project2.png",
+    image: "https://www.shutterstock.com/image-vector/map-gps-pin-navigation-direction-260nw-2528579487.jpg",
     tags: ["Nodejs", "socket.io","express.js"],
     demoUrl: "#",
     githubUrl: "#",
