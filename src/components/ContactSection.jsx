@@ -11,6 +11,7 @@ import {
 import { cn } from "../lib/utils";
 import { useToast } from "../hooks/use-toast";
 import { useState } from "react";
+import emailjs from "emailjs-com"; // ✅ added
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -18,17 +19,36 @@ export const ContactSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-      setIsSubmitting(false);
-    }, 1500);
+    emailjs
+      .sendForm(
+        "service_gznenar" , // ✅ replace with your EmailJS Service ID
+        "template_yb8n7ig" , // ✅ replace with your EmailJS Template ID
+        e.target,           // ✅ reference to the form
+        "YfJQUqqLlyAkltsGJ"   // ✅ replace with your EmailJS Public Key
+      )
+      .then(
+        () => {
+          toast({
+            title: "Message sent! 🎉",
+            description:
+              "Thank you for your message. I'll get back to you soon.",
+          });
+          setIsSubmitting(false);
+          e.target.reset(); 
+        },
+        (error) => {
+          toast({
+            title: "Error ❌",
+            description: "Something went wrong. Please try again later.",
+          });
+          setIsSubmitting(false);
+          console.error(error);
+        }
+      );
   };
+
   return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
@@ -44,14 +64,13 @@ export const ContactSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <h3 className="text-2xl font-semibold mb-6">
-              {" "}
               Contact Information
             </h3>
 
             <div className="space-y-6 justify-center">
               <div className="flex items-start space-x-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />{" "}
+                  <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-medium"> Email</h4>
@@ -65,7 +84,7 @@ export const ContactSection = () => {
               </div>
               <div className="flex items-start space-x-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />{" "}
+                  <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-medium"> Phone</h4>
@@ -79,7 +98,7 @@ export const ContactSection = () => {
               </div>
               <div className="flex items-start space-x-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />{" "}
+                  <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-medium"> Location</h4>
@@ -93,7 +112,10 @@ export const ContactSection = () => {
             <div className="pt-8">
               <h4 className="font-medium mb-4"> Connect With Me</h4>
               <div className="flex space-x-4 justify-center">
-                <a href="https://www.linkedin.com/in/abhinav-dwivedi-9m3/" target="_blank">
+                <a
+                  href="https://www.linkedin.com/in/abhinav-dwivedi-9m3/"
+                  target="_blank"
+                >
                   <Linkedin />
                 </a>
                 <a href="https://github.com/Abhinavv-933" target="_blank">
@@ -102,26 +124,25 @@ export const ContactSection = () => {
                 <a href="https://x.com/abhi09_abd" target="_blank">
                   <X />
                 </a>
-                <a href="https://www.instagram.com/being.abhinavv/" target="_blank">
+                <a
+                  href="https://www.instagram.com/being.abhinavv/"
+                  target="_blank"
+                >
                   <Instagram />
-                </a>       
+                </a>
               </div>
             </div>
           </div>
 
-          <div
-            className="bg-card p-8 rounded-lg shadow-xs"
-            onSubmit={handleSubmit}
-          >
+          <div className="bg-card p-8 rounded-lg shadow-xs">
             <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Name
                 </label>
                 <input
@@ -139,7 +160,6 @@ export const ContactSection = () => {
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Email
                 </label>
                 <input
@@ -157,7 +177,6 @@ export const ContactSection = () => {
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Message
                 </label>
                 <textarea
