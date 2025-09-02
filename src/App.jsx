@@ -1,7 +1,7 @@
 import { Home } from "./pages/Home";
 import { BrowserRouter, Route,Routes } from "react-router-dom"
 import { NotFound } from "./pages/NotFound"
-
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
           <Route path="*" element={<NotFound />}/>
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </>
   )
 }
