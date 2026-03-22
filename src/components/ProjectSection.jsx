@@ -25,7 +25,7 @@ const projects = [
     description: "Designed & Developed E-Book platform that allows users to browse, read, and manage digital books online.",
     image: "/projects/E-book.png",
     tags: ["React","Node.js", "Express.js","MongoDB"],
-    demoUrl: "#",
+    demoUrl: "https://e-book-store-abd.vercel.app/",
     githubUrl: "https://github.com/Abhinavv-933/E-BOOK-Store",
   },
 ];
